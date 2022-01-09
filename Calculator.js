@@ -3,6 +3,7 @@ let entryField;
 let calcTotal = 0;
 let currentEntry = "";
 let entryHistory = "";
+let lastOP;
 
 function bindNumberOnClicks() {
   let numberbutton = document.querySelectorAll(".number-button");
@@ -25,22 +26,31 @@ function bindOperatorOnClick(button) {
 }
 function operatorOnClick(event) {
   console.log(event.target.dataset.value);
-  let op = event.target.dataset.value;
+  let newOP = event.target.dataset.value;
   let enteredNumber = parseFloat(currentEntry);
-  if (op === "+") {
+  if (lastOP === "+") {
     calcTotal = calcTotal + enteredNumber;
-  } else if (op === "-") {
+  } else if (lastOP === "-") {
     calcTotal = calcTotal - enteredNumber;
-  } else if (op === "*") {
+  } else if (lastOP === "*") {
     calcTotal = calcTotal * enteredNumber;
-  } else if (op === "/") {
+  } else if (lastOP === "/") {
     calcTotal = calcTotal / enteredNumber;
-  } else if (op === "=") {
+  } else {
+    calcTotal = enteredNumber;
   }
-  entryHistory = entryHistory + op + currentEntry;
-  equationField.innerHTML = entryHistory;
-  currentEntry = " ";
-  entryField.innerHTML = currentEntry;
+  if (newOP === "=") {
+    entryHistory = entryHistory + currentEntry + newOP + calcTotal;
+    equationField.innerHTML = entryHistory;
+    currentEntry = calcTotal;
+    entryField.innerHTML = currentEntry;
+  } else {
+    entryHistory = entryHistory + currentEntry + newOP;
+    equationField.innerHTML = entryHistory;
+    currentEntry = "0";
+    entryField.innerHTML = currentEntry;
+  }
+  lastOP = newOP;
 
   console.log(calcTotal);
 }
