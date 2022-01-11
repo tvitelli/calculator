@@ -1,0 +1,11 @@
+h1 {
+  color: red;
+  font: 100;
+  font-family: Arial, Helvetica, sans-serif;
+}
+button {
+  size: 72pt;
+  color: blue;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 1pt;
+}
